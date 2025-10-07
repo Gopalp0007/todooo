@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo App</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>My Todo List</h1>
+
+  <form action="/add" method="POST">
+    <input type="text" name="ele1" placeholder="Add new task..." required>
+    <button type="submit">Add</button>
+  </form>
+  <ul>
+  <% items.forEach(function(task){ %>
+    <li>
+      <!-- Toggle Done -->
+      <form action="/toggle" method="POST" style="display:inline;">
+        <input type="hidden" name="id" value="<%= task._id %>">
+        <button type="submit"><%= task.done ? "✅" : "⬜" %></button>
+      </form>
+
+      <!-- Task Text / Edit Form -->
+      <span class="<%= task.done ? 'done' : '' %>"><%= task.text %></span>
+
+      <form action="/edit" method="POST" style="display:inline;">
+        <input type="hidden" name="id" value="<%= task._id %>">
+        <input type="text" name="newText" placeholder="Edit task">
+        <button type="submit">✏️</button>
+      </form>
+
+      <!-- Delete -->
+      <form action="/delete" method="POST" style="display:inline;">
+        <input type="hidden" name="id" value="<%= task._id %>">
+        <button type="submit">❌</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+
+<footer>
+  <p>© 2025 Todo App by You 💻</p>
+</footer>
+
+ 
+</body>
+</html>
